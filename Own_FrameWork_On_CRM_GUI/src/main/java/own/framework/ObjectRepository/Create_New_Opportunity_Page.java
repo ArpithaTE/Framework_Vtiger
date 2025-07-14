@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 public class Create_New_Opportunity_Page {
 	WebDriver driver;
@@ -17,7 +18,10 @@ public class Create_New_Opportunity_Page {
 	private WebElement OpportunityNameEdt;
 
 	@FindBy(xpath = "(//img[@src='themes/softed/images/select.gif'])[1]")
-	private WebElement OrganizationLookupImage;
+	private WebElement relatedToLookupImage;
+	
+	@FindBy(id = "related_to_type")
+	private WebElement RelatedToDropdown;
 	
 	@FindBy(xpath = "(//input[@class='crmbutton small save'])[1]")
 	private WebElement OppSaveBtn;
@@ -30,8 +34,25 @@ public class Create_New_Opportunity_Page {
 		return OpportunityNameEdt;
 	}
 
-	public WebElement getOrganizationLookupImage() {
-		return OrganizationLookupImage;
+	public WebElement getRelatedToLookupImage() {
+		return relatedToLookupImage;
 	}
 
+	public WebElement getRelatedToDropdown() {
+		return RelatedToDropdown;
+	}
+	public void selectFromRelatedToDropdown(String Contacts) {
+		Select sel= new Select(RelatedToDropdown);
+		sel.selectByValue(Contacts);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

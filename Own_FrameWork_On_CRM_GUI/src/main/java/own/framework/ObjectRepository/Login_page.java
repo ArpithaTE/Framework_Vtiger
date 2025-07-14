@@ -9,11 +9,8 @@ import org.openqa.selenium.support.PageFactory;
 
 public class Login_page {
 
-	WebDriver driver;
 
 	public Login_page(WebDriver driver) {
-		super();
-		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
 
@@ -38,7 +35,7 @@ public class Login_page {
 		return loginBtn;
 	}
 
-	public void loginToApplication(String url, String username, String password) {
+	public void loginToApplication(WebDriver driver, String url, String username, String password) {
 		driver.get(url);
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
@@ -47,7 +44,7 @@ public class Login_page {
 		loginBtn.click();
 	}
 
-	public void loginToApplication(String username, String password) {
+	public void loginToApplication(WebDriver driver, String username, String password) {
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		usernameEdit.sendKeys(username);

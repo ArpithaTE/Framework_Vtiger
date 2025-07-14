@@ -3,16 +3,17 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="CreateOpportunityTest.Opportunity_Own_Test">
+      <class name="TroubleTicketTest.CreateTroubleTicketTest">
         <methods>
           <include name="configAC"/>
           <include name="configAS"/>
+          <include name="configBC"/>
           <include name="configBS"/>
-          <include name="createOppotunityWithOrganization"/>
           <include name="configAM"/>
           <include name="configBM"/>
+          <include name="createTroubleTicket"/>
         </methods>
-      </class> <!-- CreateOpportunityTest.Opportunity_Own_Test -->
+      </class> <!-- TroubleTicketTest.CreateTroubleTicketTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

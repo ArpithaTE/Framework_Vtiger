@@ -1,7 +1,9 @@
 package own.framework.GenericUtility;
 
-import java.util.Date;
+import java.time.LocalDate;
 
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.testng.ISuite;
 import org.testng.ISuiteListener;
 import org.testng.ITestContext;
@@ -24,8 +26,8 @@ public class Listner_Utility_Class implements ITestListener, ISuiteListener {
 	@Override
 	public void onStart(ISuite suite) {
 		System.out.println("Report Configuration");
-		String time = new Date().toString().replace(" ", "_").replace(": ", "_").replace(" -", "_");
-		spark = new ExtentSparkReporter("./AdvanceReport/ExtentReport_" + time + ".html");
+		LocalDate date = LocalDate.now();
+		spark = new ExtentSparkReporter("./AdvanceReport/ExtentReport_" + date + ".html");
 		spark.config().setDocumentTitle("Own CRM Project Test Suite Result");
 		spark.config().setReportName("Own CRM Report");
 		spark.config().setTheme(Theme.DARK);
@@ -38,36 +40,48 @@ public class Listner_Utility_Class implements ITestListener, ISuiteListener {
 	@Override
 	public void onFinish(ISuite suite) {
 		System.out.println("Report Backup");
+		report.flush();
 	}
 
 	@Override
 	public void onTestStart(ITestResult result) {
-		System.out.println("===========" + result.getMethod().getMethodName() + ">>>START===========");
+		
 		test = report.createTest(result.getMethod().getMethodName());
 		Utility_Class_Object_Own.settest(test);
-		Utility_Class_Object_Own.gettest().log(Status.INFO, result.getMethod().getMethodName() + "=====>STARTED=====");
-		// test.log(Status.INFO,
-		// result.getMethod().getMethodName()+"=====>>>>STARTED<<<<=====");
+		Utility_Class_Object_Own.gettest().log(Status.INFO, result.getMethod().getMethodName()+"Execution Start");		
 	}
 
 	@Override
 	public void onTestSuccess(ITestResult result) {
-		Utility_Class_Object_Own.gettest().log(Status.PASS, result.getMethod().getMethodName() + "=====>>>>PASS<<<<=====");
+		String testName = result.getMethod().getMethodName();
+		TakesScreenshot takescreen = (TakesScreenshot) Utility_Class_Object_Own.getdriver();
+		String filePath = takescreen.getScreenshotAs(OutputType.BASE64);
+		LocalDate time = LocalDate.now();
+		Utility_Class_Object_Own.gettest().addScreenCaptureFromBase64String(filePath, testName + "_" + time);
+		Utility_Class_Object_Own.gettest().log(Status.PASS,result.getMethod().getMethodName() + "Succesfully Executed");
 	}
 
 	@Override
 	public void onTestFailure(ITestResult result) {
-//		String testName = result.getMethod().getMethodName();
-////		TakesScreenshot ts = (TakesScreenshot) ;
-////		String filePath = ts.getScreenshotAs(OutputType.BASE64);
-//		String time = new Date().toString().replace("-", "_").replace(":", "_").replace(" ", "_");
-//		test.addScreenCaptureFromBase64String(filePath, testName + "_" + time);
-//		test.log(Status.INFO, result.getMethod().getMethodName() + "==> TEST FAILED <==");
-
+		String testName = result.getMethod().getMethodName();
+		TakesScreenshot takescreen = (TakesScreenshot) Utility_Class_Object_Own.getdriver();
+		String filePath = takescreen.getScreenshotAs(OutputType.BASE64);
+		LocalDate time = LocalDate.now();
+		Utility_Class_Object_Own.gettest().addScreenCaptureFromBase64String(filePath, testName + "_" + time);
+		Utility_Class_Object_Own.gettest().log(Status.FAIL, result.getMethod().getMethodName() + "==> TEST Failed");
+		Utility_Class_Object_Own.gettest().log(Status.FAIL, result.getThrowable());
 	}
 
 	@Override
 	public void onTestSkipped(ITestResult result) {
+		String testName = result.getMethod().getMethodName();
+		TakesScreenshot takescreen = (TakesScreenshot) Utility_Class_Object_Own.getdriver();
+		String filePath = takescreen.getScreenshotAs(OutputType.BASE64);
+		LocalDate time = LocalDate.now();
+		Utility_Class_Object_Own.gettest().addScreenCaptureFromBase64String(filePath, testName + "_" + time);
+		Utility_Class_Object_Own.gettest().log(Status.SKIP, result.getMethod().getMethodName() + "==> TEST Skipped");
+		Utility_Class_Object_Own.gettest().log(Status.FAIL, result.getThrowable());
+
 	}
 
 	@Override

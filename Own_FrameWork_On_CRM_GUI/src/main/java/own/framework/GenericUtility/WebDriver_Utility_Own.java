@@ -7,7 +7,6 @@ import java.util.Set;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.devtools.v129.webaudio.model.AudioListenerWillBeDestroyed;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -108,7 +107,7 @@ public class WebDriver_Utility_Own {
 
 	public void WebElementDropDown(WebElement element, String text) {
 		Select sel = new Select(element);
-		sel.selectByVisibleText(text);
+		sel.selectByValue(text);
 	}
 
 	// Action class method:

@@ -18,6 +18,13 @@ public class Opportunity_Created_Page {
 
 	@FindBy(xpath = "//td[@class='dvtCellInfo']/a[@title='Organizations']")
 	private WebElement OrgNameInOppText;
+	
+	@FindBy(xpath = "//td[@class='dvtCellInfo']/a[@title='Contacts']")
+	private WebElement ContactNameInOppText;
+	
+	public WebElement getContactNameInOppText() {
+		return ContactNameInOppText;
+	}
 
 	public WebElement getOrgNameInOppText() {
 		return OrgNameInOppText;

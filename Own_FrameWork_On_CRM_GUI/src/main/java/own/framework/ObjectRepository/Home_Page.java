@@ -2,6 +2,7 @@ package own.framework.ObjectRepository;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -82,5 +83,24 @@ public class Home_Page {
 	public WebElement getSignOutLink() {
 		return signOutLink;
 	}
+	// business utility
+		public void navigateToCampaignLink() {
+			Actions act = new Actions(driver);
+			act.moveToElement(moreLink).perform();
+			act.moveToElement(campaignsLink).click().perform();
+		}
+		
+		public void navigateToVendorLink() {
+			Actions act = new Actions(driver);
+			act.moveToElement(moreLink).perform();
+			act.moveToElement(vendorsLink).click().perform();
+		}
+
+//		business method to logout
+		public void logout() {
+			Actions act = new Actions(driver);
+			act.moveToElement(administratorImage).perform();
+			signOutLink.click();
+		}
 	
 }
